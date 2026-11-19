@@ -1,20 +1,30 @@
 package com.technischools.myapplication
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val numerPrania = findViewById<EditText>(R.id.numerPrania)
+        val zatwierdz = findViewById<Button>(R.id.zatwierdz)
+        val wynikPrania = findViewById<TextView>(R.id.wynikPrania)
+
+        zatwierdz.setOnClickListener {
+            val numer = numerPrania.text.toString().toIntOrNull()
+
+            if (numer != null && numer in 1..12) {
+                wynikPrania.text = "Numer prania: $numer"
+            } else {
+                Toast.makeText(this, "Podaj numer od 1 do 12", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
